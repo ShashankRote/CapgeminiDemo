@@ -20,6 +20,12 @@
 		"DS_Blobzip_properties_typeProperties_folderPath": {
 			"value": "data"
 		},
+		"blobdest_properties_typeProperties_fileName": {
+			"value": "file.txt"
+		},
+		"blobdest_properties_typeProperties_folderPath": {
+			"value": "scripts"
+		},
 		"batchls_properties_typeProperties_accountName": {
 			"value": "playookbatchaccount"
 		}
