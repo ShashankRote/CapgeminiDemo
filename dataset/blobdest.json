@@ -1,0 +1,23 @@
+{
+	"name": "blobdest",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_blobstorage",
+			"type": "LinkedServiceReference"
+		},
+		"type": "AzureBlob",
+		"typeProperties": {
+			"format": {
+				"type": "TextFormat",
+				"columnDelimiter": ",",
+				"rowDelimiter": "",
+				"nullValue": "\\N",
+				"treatEmptyAsNull": true,
+				"skipLineCount": 0,
+				"firstRowAsHeader": false
+			},
+			"fileName": "file.txt",
+			"folderPath": "scripts"
+		}
+	}
+}
