@@ -7,6 +7,10 @@
 			"metadata": "Data Factory Name",
 			"defaultValue": "playbookadfv2"
 		},
+		"LS_blobstorage_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_blobstorage'"
+		},
 		"batchblobls_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'batchblobls'"
@@ -14,6 +18,14 @@
 		"batchls_accessKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accessKey' of 'batchls'"
+		},
+		"DS_Blobzip_properties_typeProperties_fileName": {
+			"type": "string",
+			"defaultValue": "STG_SAPECC_TRANS_2017_JAN.zip"
+		},
+		"DS_Blobzip_properties_typeProperties_folderPath": {
+			"type": "string",
+			"defaultValue": "data"
 		},
 		"batchls_properties_typeProperties_accountName": {
 			"type": "string",
@@ -71,6 +83,99 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DS_Blobzip')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_blobstorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureBlob",
+				"structure": [
+					{
+						"name": "Year",
+						"type": "String"
+					},
+					{
+						"name": "Month",
+						"type": "String"
+					},
+					{
+						"name": "Geomarket",
+						"type": "String"
+					},
+					{
+						"name": "Sub Geomarket",
+						"type": "String"
+					},
+					{
+						"name": "Product Line",
+						"type": "String"
+					},
+					{
+						"name": "Sub Product Line",
+						"type": "String"
+					},
+					{
+						"name": "GL Account Type",
+						"type": "String"
+					},
+					{
+						"name": "Local Curr",
+						"type": "String"
+					},
+					{
+						"name": "Local Amount",
+						"type": "String"
+					},
+					{
+						"name": "Transaction Curr",
+						"type": "String"
+					},
+					{
+						"name": "Transaction Amount",
+						"type": "String"
+					}
+				],
+				"typeProperties": {
+					"format": {
+						"type": "TextFormat",
+						"columnDelimiter": "\t",
+						"rowDelimiter": "",
+						"nullValue": "\\N",
+						"encodingName": null,
+						"treatEmptyAsNull": true,
+						"skipLineCount": 0,
+						"firstRowAsHeader": true
+					},
+					"compression": {
+						"type": "ZipDeflate",
+						"level": "Optimal"
+					},
+					"fileName": "[parameters('DS_Blobzip_properties_typeProperties_fileName')]",
+					"folderPath": "[parameters('DS_Blobzip_properties_typeProperties_folderPath')]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_blobstorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_blobstorage')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('LS_blobstorage_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/batchblobls')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -107,6 +212,27 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/batchblobls')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlob1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlob",
+				"typeProperties": {
+					"format": {
+						"type": "TextFormat",
+						"columnDelimiter": ",",
+						"rowDelimiter": "",
+						"nullValue": "\\N",
+						"treatEmptyAsNull": true,
+						"skipLineCount": 0,
+						"firstRowAsHeader": false
+					}
+				}
+			},
+			"dependsOn": []
 		}
 	]
 }

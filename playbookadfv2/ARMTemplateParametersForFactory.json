@@ -5,11 +5,20 @@
 		"factoryName": {
 			"value": "playbookadfv2"
 		},
+		"LS_blobstorage_connectionString": {
+			"value": ""
+		},
 		"batchblobls_connectionString": {
 			"value": ""
 		},
 		"batchls_accessKey": {
 			"value": ""
+		},
+		"DS_Blobzip_properties_typeProperties_fileName": {
+			"value": "STG_SAPECC_TRANS_2017_JAN.zip"
+		},
+		"DS_Blobzip_properties_typeProperties_folderPath": {
+			"value": "data"
 		},
 		"batchls_properties_typeProperties_accountName": {
 			"value": "playookbatchaccount"
