@@ -25,7 +25,10 @@
 					"type": "LinkedServiceReference"
 				}
 			}
-		]
+		],
+		"folder": {
+			"name": "SharePoint-Demo"
+		}
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }
