@@ -13,7 +13,7 @@
 					"secureInput": false
 				},
 				"typeProperties": {
-					"command": "SharepointDonwload",
+					"command": "Sharepoint_DataDownload.exe",
 					"folderPath": ""
 				},
 				"linkedServiceName": {
