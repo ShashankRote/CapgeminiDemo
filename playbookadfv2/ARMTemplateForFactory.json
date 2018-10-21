@@ -121,7 +121,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"command": "Sharepoint_DataDownload.exe",
+							"command": "cmd Sharepoint_DataDownload.exe",
 							"resourceLinkedService": {
 								"referenceName": "Sharepoint_Download_Blob_LinkedService",
 								"type": "LinkedServiceReference"
