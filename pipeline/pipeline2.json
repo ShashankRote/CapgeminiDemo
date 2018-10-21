@@ -11,6 +11,18 @@
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
 					"secureInput": false
+				},
+				"typeProperties": {
+					"command": "Sharepoint_DataDownload",
+					"resourceLinkedService": {
+						"referenceName": "Sharepoint_Download_Blob_LinkedService",
+						"type": "LinkedServiceReference"
+					},
+					"folderPath": "applicationblob"
+				},
+				"linkedServiceName": {
+					"referenceName": "Sharepoint_Download_LinkedService",
+					"type": "LinkedServiceReference"
 				}
 			}
 		]
