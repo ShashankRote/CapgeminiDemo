@@ -8,6 +8,12 @@
 		"LS_blobstorage_connectionString": {
 			"value": ""
 		},
+		"Sharepoint_Download_Blob_LinkedService_connectionString": {
+			"value": ""
+		},
+		"Sharepoint_Download_LinkedService_accessKey": {
+			"value": ""
+		},
 		"batchblobls_connectionString": {
 			"value": ""
 		},
@@ -25,6 +31,9 @@
 		},
 		"blobdest_properties_typeProperties_folderPath": {
 			"value": "scripts"
+		},
+		"Sharepoint_Download_LinkedService_properties_typeProperties_accountName": {
+			"value": "playbook"
 		},
 		"batchls_properties_typeProperties_accountName": {
 			"value": "playookbatchaccount"

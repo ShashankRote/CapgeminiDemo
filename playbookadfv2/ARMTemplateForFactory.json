@@ -11,6 +11,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_blobstorage'"
 		},
+		"Sharepoint_Download_Blob_LinkedService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Sharepoint_Download_Blob_LinkedService'"
+		},
+		"Sharepoint_Download_LinkedService_accessKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessKey' of 'Sharepoint_Download_LinkedService'"
+		},
 		"batchblobls_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'batchblobls'"
@@ -34,6 +42,10 @@
 		"blobdest_properties_typeProperties_folderPath": {
 			"type": "string",
 			"defaultValue": "scripts"
+		},
+		"Sharepoint_Download_LinkedService_properties_typeProperties_accountName": {
+			"type": "string",
+			"defaultValue": "playbook"
 		},
 		"batchls_properties_typeProperties_accountName": {
 			"type": "string",
@@ -91,14 +103,14 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"name": "[concat(parameters('factoryName'), '/pipeline2')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy Data1",
-						"type": "Copy",
+						"name": "ExecuteSharepointDownload",
+						"type": "Custom",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "7.00:00:00",
@@ -109,37 +121,28 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"source": {
-								"type": "BlobSource",
-								"recursive": true
+							"command": "Sharepoint_DataDownload",
+							"resourceLinkedService": {
+								"referenceName": "Sharepoint_Download_Blob_LinkedService",
+								"type": "LinkedServiceReference"
 							},
-							"sink": {
-								"type": "BlobSink"
-							},
-							"enableStaging": false,
-							"dataIntegrationUnits": 0
+							"folderPath": "applicationblob",
+							"referenceObjects": {
+								"linkedServices": [],
+								"datasets": []
+							}
 						},
-						"inputs": [
-							{
-								"referenceName": "DS_Blobzip",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "blobdest",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
+						"linkedServiceName": {
+							"referenceName": "Sharepoint_Download_LinkedService",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_Blobzip')]",
-				"[concat(variables('factoryId'), '/datasets/blobdest')]"
+				"[concat(variables('factoryId'), '/linkedServices/Sharepoint_Download_Blob_LinkedService')]",
+				"[concat(variables('factoryId'), '/linkedServices/Sharepoint_Download_LinkedService')]"
 			]
 		},
 		{
@@ -263,6 +266,44 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Sharepoint_Download_Blob_LinkedService')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('Sharepoint_Download_Blob_LinkedService_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Sharepoint_Download_LinkedService')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBatch",
+				"typeProperties": {
+					"accountName": "[parameters('Sharepoint_Download_LinkedService_properties_typeProperties_accountName')]",
+					"accessKey": {
+						"type": "SecureString",
+						"value": "[parameters('Sharepoint_Download_LinkedService_accessKey')]"
+					},
+					"batchUri": "https://playbook.southeastasia.batch.azure.com",
+					"poolName": "playbookpool",
+					"linkedServiceName": {
+						"referenceName": "Sharepoint_Download_Blob_LinkedService",
+						"type": "LinkedServiceReference"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Sharepoint_Download_Blob_LinkedService')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/batchblobls')]",
