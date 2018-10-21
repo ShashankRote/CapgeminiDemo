@@ -121,7 +121,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"command": "cmd  Sharepoint_DataDownload.exe",
+							"command": "Sharepoint_DataDownload.exe",
 							"folderPath": "",
 							"referenceObjects": {
 								"linkedServices": [],
