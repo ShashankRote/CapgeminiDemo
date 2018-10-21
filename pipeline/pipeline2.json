@@ -13,12 +13,8 @@
 					"secureInput": false
 				},
 				"typeProperties": {
-					"command": "cmd Sharepoint_DataDownload.exe",
-					"resourceLinkedService": {
-						"referenceName": "Sharepoint_Download_Blob_LinkedService",
-						"type": "LinkedServiceReference"
-					},
-					"folderPath": "applicationblob"
+					"command": "cmd  Sharepoint_DataDownload.exe",
+					"folderPath": ""
 				},
 				"linkedServiceName": {
 					"referenceName": "Sharepoint_Download_LinkedService",
