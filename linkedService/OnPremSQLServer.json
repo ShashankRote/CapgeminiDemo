@@ -1,0 +1,16 @@
+{
+	"name": "OnPremSQLServer",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=True;data source=SQLSERVER2016VM;initial catalog=AdventureWorks2016",
+			"userName": "roteshashank",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIyYWMyNWIwYS05ZmYzLTRiMjEtOTBmNS01YTc3M2UzMDRmZDUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "ForOnPremVM",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
