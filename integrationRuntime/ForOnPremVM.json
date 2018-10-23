@@ -1,0 +1,6 @@
+{
+	"name": "ForOnPremVM",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
